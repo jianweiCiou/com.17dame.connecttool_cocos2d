@@ -1,0 +1,13 @@
+{
+  "ndkDirProperty": "L:\\cocos2d-x-3.17.2\\android-ndk-r13b",
+  "sdkFolder": "C:\\Users\\holyq\\AppData\\Local\\Android\\Sdk",
+  "sideBySideNdkFolderNames": [
+    "16.1.4479499",
+    "21.0.6113669",
+    "21.1.6352462",
+    "21.4.7075529",
+    "25.1.8937393",
+    "25.2.9519653",
+    "26.1.10909125"
+  ]
+}
