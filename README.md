@@ -25,6 +25,16 @@ Your application needs to support :
     implementation files('libs/connecttool-debug.aar')
 ```
 
+## Setting
+- add BroadcastReceiver:
+```xml
+<!-- 加入 CONNECT_ACTION -->
+<receiver android:name="com.r17dame.connecttool.ConnectToolBroadcastReceiver" android:exported="true">
+    <intent-filter>
+        <action android:name="com.r17dame.CONNECT_ACTION"/>
+    </intent-filter>
+</receiver>
+```
 
 ## 發行版本切換
 - 測試版 : _connectTool.setToolVersion(ConnectTool.TOOL_VERSION.testVS)
@@ -49,9 +59,27 @@ if (isHave) {
 ```
 - state : 請填寫要驗證的內容
 ### 參考
-- 說明 : https://github.com/jianweiCiou/com.17dame.connecttool_android/tree/main?tab=readme-ov-file#openauthorizeurl
-- 登入完成獲得資料 : https://github.com/jianweiCiou/com.17dame.connecttool_android/tree/main?tab=readme-ov-file#authorize-subsequent-events
-  
+- [說明](https://github.com/jianweiCiou/com.17dame.connecttool_android/tree/main?tab=readme-ov-file#openauthorizeurl)
+- 登入完成獲得資料 :  [登入後的資料內容](https://github.com/jianweiCiou/com.17dame.connecttool_android/tree/main?tab=readme-ov-file#authorize-subsequent-events)
+
+
+## 取得用戶資訊 
+### 呼叫範例
+```cpp
+JniMethodInfo minfo;
+bool isHave = JniHelper::getStaticMethodInfo(minfo, "org/cocos2dx/cpp/AppActivity", "getConnect17dameInstance", "()Lorg/cocos2dx/cpp/AppActivity;");
+jobject jobj;
+if (isHave) {
+	jobj = minfo.env->CallStaticObjectMethod(minfo.classID, minfo.methodID);
+	isHave = JniHelper::getMethodInfo(minfo, "org/cocos2dx/cpp/AppActivity", "GetMeInfo", "()V");
+
+	if (isHave) {
+		minfo.env->CallVoidMethod(jobj, minfo.methodID);
+	}
+}
+```
+- [用戶資訊格式](https://github.com/jianweiCiou/com.17dame.connecttool_android/tree/main?tab=readme-ov-file#openauthorizeurl)
+
 
 ## 儲值 SP
 ### 呼叫範例
@@ -81,8 +109,7 @@ if (isHave) {
 - 末三碼 : 111
 - OTP 密碼七碼 : 直接點選手機接收，然後輸入 OTP 密碼七碼 1234567
 ### 參考
-https://github.com/jianweiCiou/com.17dame.connecttool_android/tree/main?tab=readme-ov-file#open-recharge-page
-
+[儲值說明](https://github.com/jianweiCiou/com.17dame.connecttool_android/tree/main?tab=readme-ov-file#open-recharge-page)
 
 ## 消費 SP
 ### 呼叫範例
@@ -115,12 +142,12 @@ https://github.com/jianweiCiou/com.17dame.connecttool_android/tree/main?tab=read
 - requestNumber : UUID
 
 ### 開啟頁面
-https://github.com/jianweiCiou/com.17dame.connecttool_android/tree/main?tab=readme-ov-file#open-consumesp-page
+[消費說明](https://github.com/jianweiCiou/com.17dame.connecttool_android/tree/main?tab=readme-ov-file#open-consumesp-page)
 
 ### 遊戲 Server 端驗證方式
-- 驗證流程參考 https://github.com/jianweiCiou/com.17dame.connecttool_android/tree/main?tab=readme-ov-file#consumesp-flow
+- [驗證流程參考](https://github.com/jianweiCiou/com.17dame.connecttool_android/tree/main?tab=readme-ov-file#consumesp-flow)
 - 請於將 NotifyUrl 設定為遊戲 Server 端網址, 消費者扣除 SP 後會發送通知到此網址
 - NotifyCheck : 請回應 "ok" 或是 "true" 即可
-- NotifyCheck 參考:  https://github.com/jianweiCiou/com.17dame.connecttool_android/tree/main?tab=readme-ov-file#notifycheck
+- NotifyCheck  [參考](https://github.com/jianweiCiou/com.17dame.connecttool_android/tree/main?tab=readme-ov-file#notifycheck)
 
 
